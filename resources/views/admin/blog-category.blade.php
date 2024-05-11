@@ -75,7 +75,10 @@
                                                 <th scope="col"><span>S.No</span></th>
                                                 <th scope="col"><span>@sortablelink('name')</span></th>
                                                 <th scope="col"><span>@sortablelink('description')</span></th>
-                                                <th scope="col"><span>Status</span></th>
+                                                @php
+                                                    
+/*                                                     <th scope="col"><span>Status</span></th>
+ */                                                @endphp
                                                 <th scope="col"><span>@sortablelink('created_at', 'Date')</span></th>
                                                 <th scope="col">Action</th>
                                             </tr>
@@ -90,8 +93,9 @@
                                                         <th scope="row">{{ $serial++ }}</th>
                                                         <td>{{ $data->name }}</td>
                                                         <td>{{ $data->description }}</td>
-
-                                                        <td>
+@php
+    
+                                                    /*     <td>
                                                             <div class="custom-control custom-switch">
                                                                 <input type="checkbox" style="cursor:pointer;" class="custom-control-input"
                                                                     data-id="{{ $data->id }}"
@@ -101,7 +105,8 @@
                                                                 <label class="custom-control-label"
                                                                     for="{{ $data->id }}">{{ $data->status ? 'Active' : 'Inactive' }}</label>
                                                             </div>
-                                                        </td>
+                                                        </td> */
+@endphp
                                                         <td>{{ date('d-m-Y', strtotime($data->created_at)) }}</td>
                                                         <td>
                                                             <div class="dropdown">

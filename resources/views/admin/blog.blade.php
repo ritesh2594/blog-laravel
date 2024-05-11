@@ -77,10 +77,9 @@
                                                     <th scope="col"><span>Image</span></th>
                                                     <th scope="col"><span>@sortablelink('title')</span></th>
                                                     <th scope="col"><span>@sortablelink('category')</span></th>
-                                                    <th scope="col"><span>@sortablelink('tags')</span></th>
+                                                    {{-- <th scope="col"><span>@sortablelink('tags')</span></th> --}}
                                                     <th scope="col"><span>@sortablelink('url')</span></th>
                                                     <th scope="col"><span>@sortablelink('page_title')</span></th>
-                                                    <th scope="col"><span>@sortablelink('description')</span></th>
                                                     <th scope="col"><span>@sortablelink('created_at', 'Date')</span></th>
                                                     <th scope="col">Action</th>
                                                 </tr>
@@ -93,7 +92,7 @@
                                                     @foreach ($datas as $key => $data)
                                                         <tr>
                                                             <th scope="row">{{ $serial++ }}</th>
-                                                            <td><img src="{{ $data->image }}" alt="{{ $data->image }}"
+                                                            <td><img src="{{ asset('storage/temp/' . $data->image) }}" alt="{{ $data->image }}"
                                                                     class="img-thumbnail" width="40" height="36">
                                                             </td>
                                                             <td>{{ $data->title }}</td>
@@ -101,7 +100,8 @@
                                                             <td>
                                                                {{ $data->blogCategory->name}}
                                                             </td>
-                                                            <td>
+                                                            @php
+                                                            /* <td>
                                                                 @if($data->multipleBlogTags)
                                                                 @foreach($data->multipleBlogTags as $tag)
                                                                     {{ $tag->blogTag->name }}
@@ -110,10 +110,10 @@
                                                                     @endif
                                                                 @endforeach
                                                             @endif
-                                                            </td>
+                                                            </td> */
+                                                            @endphp
                                                             <td>{{ $data->url }}</td>
                                                             <td>{{ $data->page_title }}</td>
-                                                            <td>{{ $data->description }}</td>
                                                             <td>{{ date('d-m-Y', strtotime($data->created_at)) }}</td>
                                                             <td>
                                                                 <div class="dropdown">

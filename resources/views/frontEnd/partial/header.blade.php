@@ -1,10 +1,15 @@
+<style>
+    .logo-light {
+        width: 115px;
+        height: 100px;
+    }
+</style>
 <div class="navbar-area header-two" id="navbar">
     <div class="container-fluid">
         <nav class="navbar navbar-expand-lg">
 
             <a class="navbar-brand" href="index.html">
-                <img class="logo-light" src="{{ asset('assets/frontEnd/img/logo.webp') }}" alt="logo">
-                <img class="logo-dark" src="{{ asset('assets/frontEnd/img/logo-white.webp') }}" alt="logo">
+                <img class="logo-light" src="{{ asset('assets/frontEnd/img/logo.png') }}" alt="logo">
             </a>
 
             <a class="navbar-toggler" data-bs-toggle="offcanvas" href="#navbarOffcanvas" role="button"
@@ -63,12 +68,10 @@
 </div>
 
 
-<div class="responsive-navbar offcanvas offcanvas-end" data-bs-backdrop="static" tabindex="-1"
-    id="navbarOffcanvas">
+<div class="responsive-navbar offcanvas offcanvas-end" data-bs-backdrop="static" tabindex="-1" id="navbarOffcanvas">
     <div class="offcanvas-header">
         <a href="index.html" class="logo d-inline-block">
-            <img class="logo-light" src="{{ asset('assets/frontEnd/img/logo.webp') }}" alt="logo">
-            <img class="logo-dark" src="{{ asset('assets/frontEnd/img/logo-white.webp') }}" alt="logo">
+            <img class="logo-light" src="{{ asset('assets/frontEnd/img/logo.png') }}" alt="logo">
         </a>
         <button type="button" class="close-btn" data-bs-dismiss="offcanvas" aria-label="Close">
             <i class="ri-close-line"></i>

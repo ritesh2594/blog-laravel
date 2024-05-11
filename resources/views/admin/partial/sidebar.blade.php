@@ -72,12 +72,15 @@
                     </p>
                 </a>
                 <ul class="nav nav-treeview">
-                    <li class="nav-item">
-                        <a href="{{-- {{ route('profile') }} --}}" class="nav-link">
-                            <i class="far fa-circle nav-icon"></i>
-                            <p>Profile</p>
-                        </a>
-                    </li>
+                    @php
+                        
+                        /* <li class="nav-item">
+                            <a href="{{-- {{ route('profile') }} --}}" class="nav-link">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Profile</p>
+                            </a>
+                        </li> */
+                    @endphp
                     <li class="nav-item">
                         <a href="{{ route('logout') }}" class="nav-link">
                             <i class="far fa-circle nav-icon"></i>

@@ -29,8 +29,7 @@
     <div class="login-wrap">
         <div class="login-bg">
             <a href="/" class="navbar-brand">
-                <img class="logo-light" src="{{ asset('assets/frontEnd/img/logo.png') }}" style="width: 150px;margin-left:215px" alt="Image">
-                <img class="logo-dark" src="{{ asset('assets/frontEnd/img/logo.png') }}"  style="width: 150px;margin-left:215px" alt="Image">
+                <img class="logo-light" src="{{ asset('assets/frontEnd/img/logo.png') }}" style="width: 150px;" alt="Image">
             </a>
         </div>
         <div class="login-content">
