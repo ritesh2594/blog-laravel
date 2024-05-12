@@ -1,8 +1,8 @@
     <div class="footer-wrap">
         <div class="row align-items-center">
             <div class="col-lg-4">
-                <p class="copyright-text">© <span>Baxo</span> is proudly owned by <a
-                        href="https://hibootstrap.com/">HiBootstrap</a></p>
+                <p class="copyright-text">© <span>Your site name</span> is proudly owned by <a
+                        href="#">Owner name</a></p>
             </div>
             <div class="col-lg-4 text-center">
                 <ul class="social-profile list-style">

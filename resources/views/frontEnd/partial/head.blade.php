@@ -13,3 +13,5 @@
 <link rel="stylesheet" href="{{ asset('assets/frontEnd/css/responsive.css') }}">
 <link rel="stylesheet" href="{{ asset('assets/frontEnd/css/dark-theme.css') }}">
 <link rel="icon" type="image/png" href="{{ asset('assets/frontEnd/img/favicon.webp') }}">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.css" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">

@@ -5,6 +5,7 @@
 <head>
 
     @include('frontEnd.partial.head')
+    <title>App Name | @yield('title')</title>
 
 </head>
 

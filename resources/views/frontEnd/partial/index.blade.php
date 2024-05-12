@@ -18,7 +18,6 @@
     <link rel="stylesheet" href="{{ asset('assets/frontEnd/css/responsive.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/frontEnd/css/dark-theme.css') }}">
     <link rel="icon" type="image/png" href="{{ asset('assets/frontEnd/img/favicon.webp') }}">
-    <title>Baxo - Responsive Blog HTML Template</title>
 </head>
 
 <body>

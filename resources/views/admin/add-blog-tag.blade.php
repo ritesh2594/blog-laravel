@@ -2,7 +2,7 @@
 <html lang="en">
 
 <head>
-    <title>Appna Store | Blog Tag</title>
+    <title>Blog Tag</title>
     @include('admin.partial.head')
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <!-- Custom style -->
@@ -45,8 +45,10 @@
                                         @endif
                                     </div>
                                     <div class="card-body">
-                                        <form action="" method="POST">
-                                            <input type="hidden" name="id" value="">
+                                        <form action="{{ route('blog-tag-save') }}" method="POST">
+                                            @isset($data->id)
+                                                <input type="hidden" name="id" value="{{ $data->id }}">
+                                            @endisset
                                             @csrf
                                             <div class="row">
                                                 <div class="col-md-6">
@@ -54,7 +56,7 @@
                                                         <label for="name">Name</label>
                                                         <input type="text" class="form-control" id="name"
                                                             placeholder="Enter tag name" name="name"
-                                                            value="{{ old('name') }}">
+                                                            value="{{ old('name', isset($data) ? $data->name : '') }}">
                                                         <span class="text-danger">
                                                             @error('name')
                                                                 {{ $message }}
@@ -65,7 +67,7 @@
                                                 <div class="col-md-12">
                                                     <div class="form-group">
                                                         <label> Description </label>
-                                                        <textarea class="form-control" id="content" placeholder="Enter Description" rows="10" name="description"></textarea>
+                                                        <textarea class="form-control" id="content" placeholder="Enter Description" rows="10" name="description">{{ old('description', isset($data) ? $data->description : '') }}</textarea>
                                                     </div>
                                                 </div>
                                             </div>

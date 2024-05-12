@@ -2,7 +2,7 @@
 <html lang="en">
 
 <head>
-    <title>Appna Store | Banner</title>
+    <title>Blog</title>
     @include('admin.partial.head')
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <!-- Custom style -->
@@ -10,6 +10,7 @@
     <script src="https://cdn.ckeditor.com/ckeditor5/23.0.0/classic/ckeditor.js"></script>
 
 </head>
+
 <body class="hold-transition sidebar-mini layout-fixed">
     <div class="wrapper">
         <nav class="main-header navbar navbar-expand navbar-white navbar-light">
@@ -48,6 +49,9 @@
                                     <div class="card-body">
                                         <form action="{{ route('blog-add-save') }}" method="POST"
                                             enctype="multipart/form-data">
+                                            @isset($blog->id)
+                                                <input type="hidden" name="id" value="{{ $blog->id }}">
+                                            @endisset
                                             @csrf
                                             <div class="row">
                                                 <div class="col-md-6">
@@ -55,7 +59,7 @@
                                                         <label for="title">Title</label>
                                                         <input type="text" class="form-control" id="title"
                                                             placeholder="Enter Title" name="title"
-                                                            value="{{ old('title') }}">
+                                                            value="{{ old('title', isset($blog) ? $blog->title : '') }}">
                                                         <span class="text-danger">
                                                             @error('title')
                                                                 {{ $message }}
@@ -68,7 +72,7 @@
                                                         <label for="page-title">Page Title</label>
                                                         <input type="text" class="form-control" id="page-title"
                                                             name="page_title" placeholder="Enter Page Title"
-                                                            value="{{ old('page_title') }}">
+                                                            value="{{ old('page_title', isset($blog) ? $blog->page_title : '') }}">
                                                         <span class="text-danger">
                                                             @error('page_title')
                                                                 {{ $message }}
@@ -105,6 +109,10 @@
                                                             @foreach ($tags as $tag)
                                                                 <option value="{{ $tag->id }}">
                                                                     {{ $tag->name }}</option>
+                                                                @php
+                                                                    /*    <option value="{{ $tag->id }}" {{ in_array($tag->id, old('tag', $blog->$blog->multipleBlogTag[$key]->blog_tag_id->pluck('id')->toArray())) ? 'selected' : '' }}>
+                                                                {{ $tag->name }}</option> */
+                                                                @endphp
                                                             @endforeach
                                                         </select>
                                                         <span class="text-danger">
@@ -119,7 +127,7 @@
                                                 <div class="col-md-12">
                                                     <div class="form-group">
                                                         <label> Description </label>
-                                                        <textarea class="form-control" id="content" placeholder="Enter the Description" rows="10" name="description">{{ old('description') }}</textarea>
+                                                        <textarea class="form-control" id="content" placeholder="Enter the Description" rows="10" name="description">{{ old('description', isset($blog) ? $blog->description : '') }}</textarea>
                                                         <span class="text-danger">
                                                             @error('description')
                                                                 {{ $message }}
@@ -132,7 +140,7 @@
                                                 <div class="col-md-6">
                                                     <div class="form-group">
                                                         <label for="image">Image</label>
-                                                        <input type="file" class="form-control-file" id="image"
+                                                        <input type="file" class="form-control-file w-25" id="image"
                                                             name="image" id="image">
                                                         <span class="text-danger">
                                                             @error('image')
@@ -146,7 +154,7 @@
                                                         <label for="page-url">url</label>
                                                         <input type="text" class="form-control" id="page-title"
                                                             name="url" placeholder="Enter Page url"
-                                                            value="{{ old('url') }}">
+                                                            value="{{ old('url', isset($blog) ? $blog->url : '') }}">
                                                         <span class="text-danger">
                                                             @error('url')
                                                                 {{ $message }}

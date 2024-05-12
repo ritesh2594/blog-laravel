@@ -9,8 +9,9 @@ class MultipleBlogTag extends Model
 {
     use HasFactory;
     protected $guarded = ['id', 'created_at', 'updated_at'];    
+   
     public function blogTag()
     {
-        return $this->belongsTo(BlogTag::class, 'blog_tag_id');
+        return $this->belongsTo(BlogTag::class);
     }
 }

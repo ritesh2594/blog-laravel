@@ -1,4 +1,5 @@
 @extends('frontEnd.layouts.default')
+@section('title', $blog->page_title)
 
 @section('content')
     <div class="breadcrumb-wrap">
@@ -161,19 +162,15 @@
                 <div class="col-lg-4">
                     <div class="sidebar">
                         <div class="sidebar-widget">
-                            <h3 class="sidebar-widget-title">Popular Tags</h3>
+                            <h3 class="sidebar-widget-title">Related Tags</h3>
                             <ul class="tag-list list-style">
-                                <li><a href="news-by-tags.html">BUSINESS</a></li>
-                                <li><a href="news-by-tags.html">FOOD</a></li>
-                                <li><a href="news-by-tags.html">SCIENCE</a></li>
-                                <li><a href="news-by-tags.html">LIFESTYLE</a></li>
-                                <li><a href="news-by-tags.html">SPORTS</a></li>
-                                <li><a href="news-by-tags.html">PHOTO</a></li>
-                                <li><a href="news-by-tags.html">TECHNOLOGY</a></li>
-                                <li><a href="news-by-tags.html">CONTENT</a></li>
-                                <li><a href="news-by-tags.html">FEATURED</a></li>
-                                <li><a href="news-by-tags.html">AUDIO</a></li>
-                                <li><a href="news-by-tags.html">FASHION</a></li>
+                                @if (!$blog->multipleBlogTag->isEmpty())
+                                    @foreach ($blog->multipleBlogTag as $tagData)
+                                        <li><a href="{{route('blog-list-tag',['tag_name'=>Str::slug($tagData->blogTag->name, '-')]) }}">{{ $tagData->blogTag->name }}</a></li>
+                                    @endforeach
+                                @else
+                                    <li class="text-danger">No related tags found</li>
+                                @endif
                             </ul>
                         </div>
                     </div>

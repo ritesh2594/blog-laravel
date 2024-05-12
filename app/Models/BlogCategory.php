@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Illuminate\Support\Str;
 use Kyslik\ColumnSortable\Sortable;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -13,8 +14,23 @@ class BlogCategory extends Model
 	public $sortable = ['id', 'name'];
     protected $guarded = ['id', 'created_at', 'updated_at'];
     
-    // public function multipleBlogCategories()
-    // {
-    //     return $this->hasMany(MultipleBlogCategory::class, 'blog_categories_id');
-    // }
+    public function setNameAttribute($value)
+    {
+        $lowercaseVal = Str::lower($value); // Convert to lowercase
+        $capitalizedVal = ucwords($lowercaseVal); // Capitalize the first letter of each word
+        $this->attributes['name'] = $capitalizedVal; // Store the modified value
+    }
+    
+    public function setDescriptionAttribute($value)
+    {
+        $lowercaseVal = Str::lower($value); // Convert to lowercase
+        $capitalizedVal = ucwords($lowercaseVal); // Capitalize the first letter of each word
+
+        // Assign the processed value to the model attribute
+        $this->attributes['description'] = $capitalizedVal;
+    }
+    public function blogs()
+    {
+        return $this->hasMany(Blog::class,'blog_categories_id');
+    }
 }

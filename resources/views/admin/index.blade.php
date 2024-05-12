@@ -2,7 +2,7 @@
 <html lang="en">
 
 <head>
-    <title>Appna Store | Dashboard</title>
+    <title>Dashboard</title>
     @include('admin.partial.head')
 
 </head>

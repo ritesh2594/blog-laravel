@@ -26,6 +26,9 @@ Route::get('/', function () {
 Route::controller(HomeController::class)->group(function () {
     Route::get('/', 'home')->name('index');
     Route::get('/blog-detail/{url}', 'blogDetail')->name('blog-detail');
+    Route::get('/blog-list', 'blogList')->name('blog-list');
+    Route::get('/blog-list/category/{category_id}', 'blogList')->name('blog-list-category');
+    Route::get('/blog-list/tag/{tag_name}', 'blogList')->name('blog-list-tag');
 });
 Route::controller(UserController::class)->group(function () {
     Route::get('login', 'show')->name('login-view');
@@ -41,16 +44,21 @@ Route::middleware(['auth', 'admin'])->controller(BlogCategoryController::class)-
     Route::get('blog-category', 'index')->name('blog-category');
     Route::get('/blog-category/add-blog', 'addBlogCategoryView')->name('blog-category-add');
     Route::post('/blog-category/add-blog', 'saveCategory')->name('blog-category-save');
-    Route::delete('/blog-category/delete/{id}', 'DeleteCategory')->name('delete-blog-category');
+    Route::get('/blog-category/edit/{id}', 'edit')->name('blog-category-edit');
+    Route::get('/blog-category/delete/{id}', 'destroy')->name('delete-blog-category');
 });
 Route::middleware(['auth', 'admin'])->controller(BlogTagController::class)->prefix('admin')->group(function () {
     Route::get('blog-tag', 'index')->name('blog-tag');
     Route::get('/blog-tag/add-tag', 'addBlogTagView')->name('blog-tag-add');
     Route::post('/blog-tag/add-tag', 'saveTag')->name('blog-tag-save');
-    Route::delete('/blog-tag/delete/{id}', 'DeleteTag')->name('delete-blog-tag');
+    Route::get('/blog-tag/edit/{id}', 'edit')->name('blog-tag-edit');
+
+    Route::get('/blog-tag/delete/{id}', 'destroy')->name('delete-blog-tag');
 });
 Route::middleware(['auth', 'admin'])->controller(BlogController::class)->prefix('admin')->group(function () {
     Route::get('blog', 'index')->name('blog');
     Route::get('/blog/add-blog', 'addBlogView')->name('blog-add');
     Route::post('/blog/add-blog', 'saveBlog')->name('blog-add-save');
+    Route::get('/blog/edit/{id}', 'edit')->name('blog-edit');
+    Route::get('/blog/delete/{id}', 'destroy')->name('delete-blog');
 });

@@ -2,7 +2,7 @@
 <html lang="en">
 
 <head>
-    <title>Appna Store | Banner</title>
+    <title>Blog Tag</title>
     @include('admin.partial.head')
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <!-- Custom style -->
@@ -94,20 +94,6 @@
                                                             <th scope="row">{{ $serial++ }}</th>
                                                             <td>{{ $data->name }}</td>
                                                             <td>{{ $data->description }}</td>
-@php
-    
-                                                          /*   <td>
-                                                                <div class="custom-control custom-switch">
-                                                                    <input type="checkbox" class="custom-control-input"
-                                                                        data-id="{{ $data->id }}"
-                                                                        id="{{ $data->id }}" data-toggle="toggle"
-                                                                        data-on="Active" data-off="InActive"
-                                                                        {{ $data->status ? 'checked' : '' }}>
-                                                                    <label class="custom-control-label"
-                                                                        for="{{ $data->id }}">{{ $data->status ? 'Active' : 'Inactive' }}</label>
-                                                                </div>
-                                                            </td> */
-@endphp
                                                             <td>{{ date('d-m-Y', strtotime($data->created_at)) }}</td>
                                                             <td>
                                                                 <div class="dropdown">
@@ -117,9 +103,9 @@
                                                                         Action
                                                                     </button>
                                                                     <div class="dropdown-menu">
-                                                                        <a class="dropdown-item" href="#"> <i
+                                                                        <a class="dropdown-item" href="{{ route('blog-tag-edit',['id'=>$data->id]) }}"> <i
                                                                                 class='fas fa-edit'></i> Edit</a>
-                                                                        <a class="dropdown-item" href="#"><i
+                                                                        <a class="dropdown-item" href="{{ route('delete-blog-tag',['id'=>$data->id]) }}" onclick="confirm('Are You sure want to delete this record?')"><i
                                                                                 class='fas fa-trash-alt'></i> Delete</a>
                                                                     </div>
                                                                 </div>

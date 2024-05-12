@@ -1,4 +1,6 @@
 @extends('frontEnd.layouts.default')
+@section('title', 'Blogs')
+
 <style>
     .swiper-slide img {
         height: 406px;
@@ -41,7 +43,7 @@
                 <div class="left-content">
                     <div class="row align-items-end mb-20">
                         <div class="col-md-12 text-end">
-                            <a href="business.html" class="link-one">View All News<i class="flaticon-right-arrow"></i></a>
+                            <a href="{{ route('blog-list') }}" class="link-one">View All News<i class="flaticon-right-arrow"></i></a>
                         </div>
                     </div>
 
@@ -56,7 +58,7 @@
                                 <div class="news-card-thirteen">
                                     <div class="news-card-img">
                                         <img src="{{ asset('storage/temp/' . $data->image) }}" alt="Iamge">
-                                        <a href="{{ route('blog-detail', ['url' => $data->url]) }}" class="news-cat">
+                                        <a href="{{ route('blog-list-category',['category_id'=>$data->blogCategory->id]) }}" class="news-cat">
                                             {{ $data->blogCategory->name }}
                                         </a>
                                     </div>
@@ -81,7 +83,7 @@
                         <h3 class="sidebar-widget-title">Popular Tags</h3>
                         <ul class="tag-list list-style">
                             @foreach ($tags as $tag)
-                                <li><a href="news-by-tags.html">{{ $tag->name }}</a></li>
+                                <li><a href="#">{{ $tag->name }}</a></li>
                             @endforeach
                         </ul>
                     </div>

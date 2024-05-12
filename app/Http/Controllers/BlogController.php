@@ -5,13 +5,14 @@ namespace App\Http\Controllers;
 use Exception;
 use App\Models\Blog;
 use App\Models\BlogTag;
+use Illuminate\Support\Str;
 use App\Models\BlogCategory;
 use Illuminate\Http\Request;
 use App\Models\MultipleBlogTag;
 use App\Http\Requests\BlogRequest;
-use Illuminate\Support\Str;
 use Illuminate\Support\Facades\DB;
 use App\Models\MultipleBlogCategory;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 
 class BlogController extends Controller
 {
@@ -19,10 +20,10 @@ class BlogController extends Controller
     {
         $find = '';
         $pageSize = 10;
-        $query = Blog::query()->with('user', 'blogCategory','multipleBlogTag.blogTag');
+        $query = Blog::query()->with('user', 'blogCategory', 'multipleBlogTag.blogTag');
         if ($request->search) {
             $search = $request->search;
-            $query->where('name', 'LIKE', "%$search%")->orwhere('description', 'LIKE', "%$search%");
+            $query->where('title', 'LIKE', "%$search%")->orwhere('description', 'LIKE', "%$search%");
         }
         if ($request->sort) {
             $query->sortable();
@@ -43,7 +44,6 @@ class BlogController extends Controller
 
     public function saveBlog(BlogRequest $request)
     {
-        // dd($request);
         try {
             DB::beginTransaction();
             $currentUserId = auth()->id();
@@ -79,6 +79,37 @@ class BlogController extends Controller
         } catch (Exception $e) {
             DB::rollback();
             return redirect()->back()->withErrors(['Something went wrong: ' . $e->getMessage()]);
+        }
+    }
+    public function edit(Request $request, $id)
+    {
+        if ($id) {
+            $tag = BlogTag::get();
+            $blog = Blog::with('user', 'blogCategory', 'multipleBlogTag.blogTag')->where('id', $id)->firstOrFail();
+            $category = BlogCategory::where('status', 1)->get();
+            return view('admin.add-blog', ['tags' => $tag, 'categories' => $category,'blog'=>$blog]);
+        }
+        abort(404);
+    }
+    public function destroy($id)
+    {
+        try {
+            DB::beginTransaction();
+            $deletedTags = DB::table('multiple_blog_tags')->where('blog_id', $id)->delete();
+            if ($deletedTags === 0) {
+                DB::rollback();
+                return redirect()->back()->withErrors(['No related tags found']);
+            }
+            $blog = Blog::findOrFail($id);
+            $blog->delete();
+            DB::commit();
+            return redirect()->back()->withSuccess('Record deleted successfully');
+        } catch (ModelNotFoundException $e) {
+            DB::rollback();
+            return redirect()->back()->withErrors(['Record not found']);
+        } catch (\Exception $e) {
+            DB::rollback();
+            return redirect()->back()->withErrors(['Something went wrong']);
         }
     }
 }

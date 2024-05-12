@@ -60,78 +60,31 @@ class BlogTagController extends Controller
         }
     }
 
-    // public function softDeleteCategory(Request $request, $id)
-    // {
-    //     $category = BlogTag::find($id);
-    //     $response = [];
-
-    //     try {
-    //         if ($category) {
-    //             $category->delete();
-    //             $response['success'] = true;
-    //             $response['message'] = "Category moved to trash successfully";
-    //         } else {
-    //             $response['error'] = true;
-    //             $response['message'] = "Category not found";
-    //         }
-    //     } catch (\Exception $e) {
-    //         $response['error'] = true;
-    //         $response['message'] = "Something went wrong: " . $e->getMessage();
-    //     }
-    //     return response()->json($response);
-    // }
-
-    public function DeleteTag(Request $request, $id)
+    public function destroy($id)
     {
-        $category = BlogTag::find($id);
-        $response = [];
-
-        try {
-            if ($category) {
-                $category->forceDelete();
-                $response['success'] = true;
-                $response['message'] = "Category deleted successfully";
-            } else {
-                $response['error'] = true;
-                $response['message'] = "Category not found";
+        if ($id) {
+            try {
+                DB::beginTransaction();
+                $data = BlogTag::find($id);
+                if ($data) {
+                    $data->delete();
+                    DB::commit();
+                    return redirect()->back()->withSuccess('Record deleted successfully');
+                } else {
+                    return redirect()->back()->withErrors(['Record not found']);
+                }
+            } catch (Exception $e) {
+                DB::rollback();
+                return redirect()->back()->withErrors(['Something went wrong']);
             }
-        } catch (\Exception $e) {
-            $response['error'] = true;
-            $response['message'] = "Something went wrong: " . $e->getMessage();
         }
-        return response()->json($response);
     }
-
-    // public function getSoftDeletedTag()
-    // {
-    //     try {
-    //         $deletedTag = BlogTag::onlyTrashed()->get();
-    //         if ($deletedTag->isEmpty()) {
-    //             return response()->json(['error' => 'No soft-deleted Tag found'], 404);
-    //         }
-    //         return response()->json($deletedTag);
-    //     } catch (\Exception $e) {
-    //         return response()->json(['error' => 'Failed to fetch soft-deleted Tag'], 500);
-    //     }
-    // }
-    // public function restoreDeleteCategory(Request $request, $id)
-    // {
-    //     $category = BlogTag::find($id);
-    //     $response = [];
-
-    //     try {
-    //         if ($category) {
-    //             $category->restore();
-    //             $response['success'] = true;
-    //             $response['message'] = "Category restore successfully";
-    //         } else {
-    //             $response['error'] = true;
-    //             $response['message'] = "Category not found";
-    //         }
-    //     } catch (\Exception $e) {
-    //         $response['error'] = true;
-    //         $response['message'] = "Something went wrong: " . $e->getMessage();
-    //     }
-    //     return response()->json($response);
-    // }
+    public function edit(Request $request, $id)
+    {
+        if ($id) {
+            $tag = BlogTag::where('id', $id)->firstOrFail();
+            return view('admin.add-blog-tag', ['data' => $tag]);
+        }
+        abort(404);
+    }
 }
